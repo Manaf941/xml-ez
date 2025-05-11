@@ -108,27 +108,24 @@ function convertArray(schema: JSONSchema, elementName: string): string {
     const minOccurs = schema.minItems !== undefined ? schema.minItems.toString() : "0";
     const maxOccurs = schema.maxItems !== undefined ? schema.maxItems.toString() : "unbounded";
 
-    let itemName = elementName.endsWith('s') ? elementName.slice(0, -1) : 'item';
-    if (!itemName) itemName = 'item';
-
-    const itemTypeElement = convertSchema(itemsSchema, itemName);
+    const itemTypeElement = convertSchema(itemsSchema, elementName);
 
     const modifiedItem = itemTypeElement.replace(
         /<xs:element([^>]*)>/,
         `<xs:element$1 minOccurs="${minOccurs}" maxOccurs="${maxOccurs}">`
     );
 
-    const content = `
-<xs:element name="${elementName}">
-  ${annotationTag(schema.description)}
-  <xs:complexType>
-    <xs:sequence>
-      ${modifiedItem}
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>`.trim();
+//     const content = `
+// <xs:element name="${elementName}">
+//   ${annotationTag(schema.description)}
+//   <xs:complexType>
+//     <xs:sequence>
+//       ${modifiedItem}
+//     </xs:sequence>
+//   </xs:complexType>
+// </xs:element>`.trim();
 
-    return content;
+    return modifiedItem;
 }
 
 function annotationTag(description?: string): string {

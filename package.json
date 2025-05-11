@@ -1,5 +1,5 @@
 {
-  "name": "xml-ez",
+  "name": "@manaf941/xml-ez",
   "version": "1.0.0",
   "description": "A TypeScript library for easy conversion between Zod schemas and XML/XSD",
   "main": "dist/index.js",
